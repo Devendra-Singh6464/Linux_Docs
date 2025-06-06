@@ -103,7 +103,6 @@ Security & Compliance: Ensures your code is secure and follows rules.
 *Note: only users with the Maintainer or Owner role can import projects into groups or namespaces*
 
 
-
 *Note: Create Group and then create ya import the project into the group .Add user into group and 
 
 ![alt text](add&import_groups.png)
@@ -118,7 +117,6 @@ Clone your project using SSH.
 ```shell
 git clone git@gitlab.com:deepaktest1/democicd.git
 ```
-
 
 ### Creating CI/CD pipeline
 
@@ -234,9 +232,16 @@ deploy_job:
 
 * If you wants to download artifacts log file so .
 ![alt text](artifacts.png)
-## Runners
+### Runners
 
 *Make sure to install the GitLab runner tools on your instance before creating the runner.
+
+A single GitLab Runner can be used by multiple projects?there is no strict limit to how many projects can use the same runner. You can register one runner and assign it as a shared runner (available to all projects in your GitLab instance) or as a specific runner (assigned to one or more specific projects or groups)
+
+#### Security for self-managed runners
+
+If you plan to run your GitLab CI/CD jobs on self-managed runners, then security risks exist for your compute infrastructure and network.
+
 
 ```shell
 curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
@@ -244,19 +249,37 @@ sudo apt install gitlab-runner
 ```
 
 
-
 ![alt text](default_runner.png)
 
 Create our runner so check right side `Create project runner`
 ![alt text](<create our runner.png>)
 
+![GITLAB/runner_gui.png](runner_registor.png)
 
+![alt text](runner_gui.png)
 
+Runner after that 
 
+![alt text](runner_to_terminal.png)
 
+- Start/Restart Your Runner using terminal
+```shell
+sudo systemctl status gitlab-runner
+sudo systemctl start gitlab-runner
+```
+* Running manually 
+```shell
+gitlab-runner run
+```
+* If the runner is online but jobs are still pending, check the runner logs for errors:
+```shell
+sudo journalctl -u gitlab-runner
+```
 
-
-
+* Check how many runner in your server
+``` shell
+gitlab-runner list
+```
 
 
 
